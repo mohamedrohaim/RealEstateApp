@@ -1,0 +1,10 @@
+{
+    "property_types": [
+      "apartment",
+      "duplex",
+      "penthouse",
+      "room",
+      "studio"
+    ]
+  }
+  
