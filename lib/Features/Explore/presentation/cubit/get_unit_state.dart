@@ -32,7 +32,9 @@ class GetUnitByIdErrorState extends GetUnitState {
   final String error;
   const GetUnitByIdErrorState({required this.error});
 }
-class AddToFavortiIsloading extends GetUnitState{}
+
+class AddToFavortiIsloading extends GetUnitState {}
+
 class AddtoFavoriteSuccesState extends GetUnitState {
   final String success;
   AddtoFavoriteSuccesState({required this.success});
@@ -42,3 +44,18 @@ class AddtoFavoriteErrorState extends GetUnitState {
   final String error;
   AddtoFavoriteErrorState({required this.error});
 }
+
+class GetUnitsByCategoryGrouped extends GetUnitState {
+  List<UnitsGroupedByCategory> unitCategory;
+  GetUnitsByCategoryGrouped({required this.unitCategory});
+}
+
+class AppCreateDatabaseState extends GetUnitState {}
+
+class AppGetDatabaseState extends GetUnitState {
+  List<Map> recentViwe;
+  AppGetDatabaseState({required this.recentViwe});
+}
+class AddAppointmentIsLoading extends GetUnitState{}
+class AddAppointmnetIsSuccess extends GetUnitState{}
+class AddAppointmentIsError extends GetUnitState{}

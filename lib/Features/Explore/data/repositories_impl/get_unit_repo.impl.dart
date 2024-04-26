@@ -41,4 +41,21 @@ class GetUnitRepoImpl implements GetUnitRepo {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<String, String>> addAppointment(
+      String scheduleDate,
+      int unitId,
+      String userId,
+      String whatsappnumber,
+      String email,
+      bool isApproved) async {
+    try {
+      final response = await remoteDataSource.addAppointment(
+          scheduleDate, unitId, userId, whatsappnumber, email, isApproved);
+      return Right(response);
+    } catch (error) {
+      return Left(error.toString());
+    }
+  }
 }

@@ -7,4 +7,12 @@ abstract class GetUnitRepo {
   Future<Either<Failure, List<UnitEntity>>> getUnit();
   Future<Either<Failure, UnitById>> getUnitByID(int id, String userId);
   Future<Either<Failure, String>> adToFavorit(int id, String userId);
+  Future<Either<String, String>> addAppointment(
+        String scheduleDate,
+    int unitId,
+    String userId,
+    String whatsappnumber,
+    String email,
+    bool isApproved
+  );
 }

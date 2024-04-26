@@ -57,7 +57,19 @@ class APIHelper {
       throw Exception('Failed to fetch data: $e');
     }
   }
-
+  static Future<Response> getScheduleAppointment( String userId) async {
+    try {
+      final response = await _dio.request(
+          'https://realestate20240404164946.azurewebsites.net/api/ScheduleAppointment/user/$userId',
+          options: Options(method: "GET"));
+            pritnt(response.data.toString());
+      return response;
+    } catch (e) {
+      // Handle error
+      log(e.toString());
+      throw Exception('Failed to fetch data: $e');
+    }
+  }
   static Future<Response> aiPredict(Map<String, dynamic> data) async {
     try {
       final response = await _dio.request(

@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:realestate/Features/Auth/presentation/widgets/custom_button.dart';
 import 'package:realestate/Features/Explore/presentation/widgets/expand_text_widget.dart';
+import 'package:realestate/Features/Explore/presentation/widgets/model_bottom_sheet_widget.dart';
+import 'package:realestate/core/helper/date_converter.dart';
 import 'package:realestate/core/utils/app_color.dart';
 import 'package:realestate/core/utils/spacing.dart';
 
 class BuildingDetailsWidget extends StatefulWidget {
   final String type;
-  final String yearBuilt,description;
+  final String yearBuilt, description;
   final int area;
-  final int badrooms, bathrooms;
-  final bool garage,graden;
+  final int badrooms, bathrooms,unitId;
+  final bool garage, graden;
   const BuildingDetailsWidget({
     super.key,
     required this.type,
@@ -22,6 +24,7 @@ class BuildingDetailsWidget extends StatefulWidget {
     required this.bathrooms,
     required this.garage,
     required this.graden,
+    required this.unitId
   });
 
   @override
@@ -66,7 +69,8 @@ class _BuildingDetailsWidgetState extends State<BuildingDetailsWidget> {
                     ),
                     Divider(),
                     BuildingDataWidget(
-                      details: widget.yearBuilt,
+                      details:
+                          widget.yearBuilt,
                       type: "Year Built",
                     ),
                     Divider(),
@@ -100,7 +104,7 @@ class _BuildingDetailsWidgetState extends State<BuildingDetailsWidget> {
                         image: 'assets/bed_FILL0_wght400_GRAD0_opsz48.png',
                         featuredata: "${widget.badrooms} Beds",
                       ),
-                      horizontalSpace(widget.garage? 25:120),
+                      horizontalSpace(widget.garage ? 25 : 120),
                       FeaturesBuildingWidget(
                         image: 'assets/bathrooms.png',
                         featuredata: "${widget.bathrooms} Baths",
@@ -140,8 +144,8 @@ class _BuildingDetailsWidgetState extends State<BuildingDetailsWidget> {
                 ],
               ),
             ),
-          verticalSpace(7),
-              Text(
+            verticalSpace(7),
+            Text(
               "Descriptons",
               style: TextStyle(
                   color: AppColor.blackColor,
@@ -154,9 +158,20 @@ class _BuildingDetailsWidgetState extends State<BuildingDetailsWidget> {
               height: 110.h,
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(color: AppColor.grey2Color),
-              child: SingleChildScrollView(child: ExpandableText(widget.description,trimLines: 2,)),
+              child: SingleChildScrollView(
+                  child: ExpandableText(
+                widget.description,
+                trimLines: 2,
+              )),
             ),
-           CustomButton(onPressed: () {  }, text: "Check Appointment",),
+            CustomButton(
+              onPressed: () {
+                ModalBottomSheet.addAppointment(
+                  context, widget.unitId
+                );
+              },
+              text: "Check Appointment",
+            ),
           ],
         ),
       ),

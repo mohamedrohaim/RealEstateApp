@@ -25,7 +25,6 @@ class _DetialsScreenState extends State<DetialsScreen> {
     // TODO: implement initState
     super.initState();
     // di.sl<GetUnitCubit>()..getUnitById(widget.id);
-    //BlocProvider.of(context);
   }
 
   @override
@@ -33,7 +32,7 @@ class _DetialsScreenState extends State<DetialsScreen> {
     var userId = CacheHelper.getData(key: 'UserID');
     return BlocProvider(
       create: (context) =>
-          di.sl<GetUnitCubit>()..getUnitById(widget.id, userId),
+          di.sl<GetUnitCubit>()..getUnitById(widget.id, userId)..createDatabase(),
       child:
           BlocConsumer<GetUnitCubit, GetUnitState>(listener: (context, state) {
         if (state is GetUnitByIdIsLoading) {

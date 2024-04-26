@@ -12,6 +12,8 @@ abstract class RemoteDataSource {
   Future<List<UnitMdel>> getUnit();
   Future<UnitById> getUnitById(int id, String userId);
   Future<String> addTofavoirt(int id, String userID);
+  Future<String> addAppointment(String scheduleDate, int unitId, String userId,
+      String whatsappnumber, String email, bool isApproved);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -46,5 +48,20 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     );
     log(response.toString());
     return response.toString();
+  }
+
+  @override
+  Future<String> addAppointment(String scheduleDate, int unitId, String userId,
+      String whatsappnumber, String email, bool isApproved) async {
+    final response =
+        await DioHelper.postUser(url: APIConstant.addAppointment, data: {
+      "scheduleDate": scheduleDate,
+      "unitId": unitId,
+      "userId": userId,
+      "whatsappNumber": whatsappnumber,
+      "email": email,
+      "isApproved": true
+    });
+    return response.data;
   }
 }

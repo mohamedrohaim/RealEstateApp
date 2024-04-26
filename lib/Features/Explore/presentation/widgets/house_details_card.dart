@@ -142,6 +142,7 @@ class _HouseDetailsState extends State<HouseDetails> {
             thickness: 6,
           ),
           BuildingDetailsWidget(
+            unitId: widget.id,
             description: widget.description,
             graden: widget.garden,
             type: widget.unitCategoryName,

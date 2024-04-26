@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:realestate/Features/Explore/presentation/widgets/card_widget.dart';
+import 'package:realestate/Features/Explore/presentation/widgets/house_category.dart';
 import 'package:realestate/Features/Explore/presentation/widgets/swipper_card.dart';
+import 'package:realestate/Features/Explore/presentation/widgets/viall_category.dart';
 import 'package:realestate/core/utils/app_color.dart';
 import 'package:realestate/core/utils/spacing.dart';
 
@@ -38,22 +40,7 @@ class _ExplorScreenState extends State<ExplorScreen> {
                 hintText: "Search real estata",
                 leading: Icon(Icons.search),
               ),
-            ),
-            // Container(
-            //     decoration: BoxDecoration(
-            //         // color: AppColor.blackColor,
-            //         borderRadius: BorderRadius.circular(20),
-            //         border: Border.all(color: AppColor.blackColor)),
-            //     child: AppTextFormField(
-            //       onTap: () {
-            //        // Get.toNamed(RouteName.loginScreen);
-            //       },
-            //       controller: searchController,
-            //       hintText: "Search real estate",
-            //       type: TextInputType.streetAddress,
-            //       validator: (String? value) {},
-            //     )),
-           
+            ),  
             verticalSpace(10),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -86,9 +73,11 @@ class _ExplorScreenState extends State<ExplorScreen> {
                   height:370,
                   child: TabBarView(children:[
                     CardListView(),
-                    CardListView(),
-                    CardListView(),
-                    CardListView(),
+                   HouseListView(),
+                    VillaListView(),
+                   // VillaWidget()
+                     CardListView(),
+                     //CardListView(),
                   ] ),
                 ),
               ],

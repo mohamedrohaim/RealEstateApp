@@ -8,16 +8,18 @@ import 'package:realestate/Features/Explore/presentation/cubit/get_unit_cubit.da
 import 'package:realestate/Features/Favorites/presentation/cubit/get_favorits_cubit.dart';
 import 'package:realestate/core/app_routes/app_routes.dart';
 import 'package:realestate/core/app_routes/routes_name.dart';
+import 'package:realestate/core/helper/objectbox_interface.dart';
 import 'package:realestate/core/network/api_helper.dart';
 import 'package:realestate/core/network/cach_helper.dart';
 import 'package:realestate/core/network/dio_helper.dart';
 import 'injection_container.dart' as di;
-
+late ObjectBox objectBox;
 void main() async {
   await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.initDio();
   await CacheHelper.init();
+   objectBox = await ObjectBox.create();
   //  APIHelper.addInterceptors();
   //DioHelper.initDio();
   var userId = CacheHelper.getData(key: 'UserID');
