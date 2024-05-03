@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:realestate/core/network/api_constatn.dart';
@@ -57,13 +59,13 @@ class APIHelper {
       throw Exception('Failed to fetch data: $e');
     }
   }
-  static Future<Response> getScheduleAppointment( String userId) async {
+  static Future<List<dynamic>> getScheduleAppointment( String userId) async {
     try {
       final response = await _dio.request(
           'https://realestate20240404164946.azurewebsites.net/api/ScheduleAppointment/user/$userId',
           options: Options(method: "GET"));
             pritnt(response.data.toString());
-      return response;
+      return response.data;
     } catch (e) {
       // Handle error
       log(e.toString());
@@ -112,4 +114,6 @@ class APIHelper {
       throw e;
     }
   }
+  
+  static void pritnt(String string) {}
 }

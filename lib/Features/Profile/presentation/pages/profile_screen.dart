@@ -157,11 +157,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           .appointmnets[index].scheduleDate
                                           .toString());
                                 },
-                                separatorBuilder: (context, index) => Divider(),
-                                itemCount: 10,
+                                separatorBuilder: (context, index) => const Divider(),
+                                itemCount: state.appointmnets.length,
                               );
                             }
-                            return CircularProgressIndicator();
+                            return const  CireProgressIndecatorWidget();
                           },
                         );
                       }, listener: (context, state) {

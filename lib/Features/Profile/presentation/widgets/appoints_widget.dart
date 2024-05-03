@@ -29,8 +29,9 @@ class _AppointmentsWidgetsState extends State<AppointmentsWidgets> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TitlesTextWidget(
-              label:  DateConverter.getDateTimeWithMonth(dateTime),
-              fontSize: 12,
+              label: "Your Appoitment at ${DateConverter.getDateTimeWithMonth(dateTime)}",
+              fontSize: 16,
+              color: Colors.blue,
             ),
           ],
         ),

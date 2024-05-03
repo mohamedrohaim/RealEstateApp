@@ -13,7 +13,7 @@ class ProfileRemotedataImpl implements ProfileRmoeteData {
   Future<List<UserAppointment>> getAppointments(String userId) async {
     final response = await APIHelper.getScheduleAppointment(userId);
     List<UserAppointment> list =
-        (response.data).map((value) => UserAppointment.fromJson(value)).toList();
+        (response).map((value) => UserAppointment.fromJson(value)).toList();
     return list;
   }
 }

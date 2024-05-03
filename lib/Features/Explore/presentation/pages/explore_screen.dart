@@ -41,6 +41,7 @@ class _ExplorScreenState extends State<ExplorScreen> {
                 leading: Icon(Icons.search),
               ),
             ),  
+            
             verticalSpace(10),
             Padding(
               padding: const EdgeInsets.all(8.0),
