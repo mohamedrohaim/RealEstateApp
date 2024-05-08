@@ -15,4 +15,5 @@ abstract class GetUnitRepo {
     String email,
     bool isApproved
   );
+    Future<Either<Failure, List<UnitEntity>?>> searchFilter(String? title,String? governate, int? priceFrom, int? priceTo);
 }

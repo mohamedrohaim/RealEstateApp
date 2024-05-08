@@ -18,5 +18,6 @@ class APIConstant {
   static const String resetPassword = "/api/Account/resetForgetPassword";
   static const String addAppointment = '/api/ScheduleAppointment/create';
     static const String getAppointment = '/api/ScheduleAppointment/user/';
+    static const String filterUnit = '/api/Unit/FilterUnits'; 
 }
 //  'https://realestate20240404164946.azurewebsites.net/api/Unit/remove-favorite?userId=9974c671-833b-4651--cf37eee78d7c&unitId=6' \

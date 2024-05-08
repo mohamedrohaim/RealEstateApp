@@ -258,10 +258,10 @@ class CardListView extends StatelessWidget {
                 }
               } else if (state is GetUnitErrorState) {
                 return CircularProgressIndicator(
-                  color: Colors.red,
+                  color: const Color.fromARGB(255, 27, 25, 25),
                 );
               }
-              return const CireProgressIndecatorWidget();
+              return Center(child: const CireProgressIndecatorWidget());
             },
           );
         },

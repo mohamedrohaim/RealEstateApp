@@ -1,37 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:realestate/Features/Auth/presentation/widgets/custom_button.dart';
 import 'package:realestate/Features/Explore/presentation/widgets/expand_text_widget.dart';
 import 'package:realestate/Features/Explore/presentation/widgets/model_bottom_sheet_widget.dart';
 import 'package:realestate/core/helper/date_converter.dart';
+import 'package:realestate/core/helper/map_unit_helper.dart';
 import 'package:realestate/core/utils/app_color.dart';
 import 'package:realestate/core/utils/spacing.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BuildingDetailsWidget extends StatefulWidget {
   final String type;
   final String yearBuilt, description;
   final int area;
-  final int badrooms, bathrooms,unitId;
+  final int badrooms, bathrooms, unitId;
   final bool garage, graden;
-  const BuildingDetailsWidget({
-    super.key,
-    required this.type,
-    required this.description,
-    required this.yearBuilt,
-    required this.area,
-    required this.badrooms,
-    required this.bathrooms,
-    required this.garage,
-    required this.graden,
-    required this.unitId
-  });
+  const BuildingDetailsWidget(
+      {super.key,
+      required this.type,
+      required this.description,
+      required this.yearBuilt,
+      required this.area,
+      required this.badrooms,
+      required this.bathrooms,
+      required this.garage,
+      required this.graden,
+      required this.unitId});
 
   @override
   State<BuildingDetailsWidget> createState() => _BuildingDetailsWidgetState();
 }
 
 class _BuildingDetailsWidgetState extends State<BuildingDetailsWidget> {
+  static void navigateTo(double lat, double lng) async {
+    var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
+    if (await canLaunchUrl(Uri.parse(uri.toString()))) {
+      await launchUrl(Uri.parse(uri.toString()));
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -69,8 +82,7 @@ class _BuildingDetailsWidgetState extends State<BuildingDetailsWidget> {
                     ),
                     Divider(),
                     BuildingDataWidget(
-                      details:
-                          widget.yearBuilt,
+                      details: widget.yearBuilt,
                       type: "Year Built",
                     ),
                     Divider(),
@@ -164,11 +176,37 @@ class _BuildingDetailsWidgetState extends State<BuildingDetailsWidget> {
                 trimLines: 2,
               )),
             ),
+            verticalSpace(10),
+            Text(
+              "Location",
+              style: TextStyle(
+                  color: AppColor.blackColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600),
+            ),
+            verticalSpace(5),
+            Align(
+                alignment: Alignment.center,
+                child: InkWell(
+                  onTap: () {
+                    // navigateTo(30.033333,31.233334);
+                    MapUtils.openMapsSheet(context, Coords(30.033333,31.233334), 'Cairo');
+                  },
+                  child: Container(
+                      height: 150.h,
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      decoration:
+                          const BoxDecoration(color: AppColor.grey2Color),
+                      child: Center(
+                          child: Image.asset(
+                              'assets/Animation - 1715071169846.gif'))),
+                )),
+            //Lottie.asset("assets/Animation - 1715071169846.json"),
+            verticalSpace(5),
             CustomButton(
               onPressed: () {
-                ModalBottomSheet.addAppointment(
-                  context, widget.unitId
-                );
+                ModalBottomSheet.addAppointment(context, widget.unitId);
               },
               text: "Check Appointment",
             ),

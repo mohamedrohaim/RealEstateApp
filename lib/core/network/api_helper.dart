@@ -47,7 +47,26 @@ class APIHelper {
 
     //return response.data;
   }
+  static Future<List<dynamic>> filterSearch({String? url, dynamic data}) async {
+    try {
+      var response = await _dio.post(APIConstant.baseUrl + url!, data: data);
+      debugPrint(response.data.toString());
+      if (response.statusCode == 200) {
+        // debugPrint(response.data.toString());
+        log(response.data.toString());
+        return response.data;
+      } else {
+        debugPrint("Request Faild with status code:${response.statusCode}");
+        throw Exception(
+            "Request Faild with status code:${response.statusCode}");
+      }
+    } catch (error) {
+      debugPrint("Error:$error");
+      throw Exception("Error:$error");
+    }
 
+    //return response.data;
+  }
   static Future<Response> fetchData(int id, String userId) async {
     try {
       final response = await _dio.request(

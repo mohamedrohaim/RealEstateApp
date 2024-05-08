@@ -59,3 +59,12 @@ class AppGetDatabaseState extends GetUnitState {
 class AddAppointmentIsLoading extends GetUnitState{}
 class AddAppointmnetIsSuccess extends GetUnitState{}
 class AddAppointmentIsError extends GetUnitState{}
+class FiterSearchIsLoadingState extends GetUnitState{}
+class FiterSearchIsSuccessState extends GetUnitState{
+  List<UnitEntity> units;
+  FiterSearchIsSuccessState({required this.units}); 
+}
+class FiterSearchIsErrorState extends GetUnitState{
+  final String error;
+  FiterSearchIsErrorState({required this.error}); 
+}

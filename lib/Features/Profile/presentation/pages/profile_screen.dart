@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:realestate/Features/Explore/domain/entities/recent_entity.dart';
 import 'package:realestate/Features/Explore/presentation/cubit/get_unit_cubit.dart';
+import 'package:realestate/Features/Explore/presentation/pages/details_screen.dart';
 import 'package:realestate/Features/Explore/presentation/widgets/card_widget.dart';
 import 'package:realestate/Features/Profile/presentation/cubit/profile_cubit.dart';
 import 'package:realestate/Features/Profile/presentation/widgets/app_bar_profile_screen.dart';
@@ -111,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         text: 'Recent view',
                       ),
                       Tab(
-                        text: 'History call',
+                        text: 'Appointments',
                       ),
                     ],
                   ),
@@ -129,8 +130,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 children: snapshot.data!
                                     .map((e) => Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: RecentView(
-                                            recentEntity: e,
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.push(context,MaterialPageRoute(builder: (context)=>DetialsScreen(id: e.uitId)));
+                                            },
+                                            child: RecentView(
+                                              recentEntity: e,
+                                            ),
                                           ),
                                         ))
                                     .toList(),
@@ -152,16 +158,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                               return ListView.separated(
                                 itemBuilder: (context, index) {
-                                  return AppointmentsWidgets(
-                                      date: state
-                                          .appointmnets[index].scheduleDate
-                                          .toString());
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetialsScreen(
+                                                      id: state
+                                                          .appointmnets[index]
+                                                          .unitId!
+                                                          .toInt())));
+                                    },
+                                    child: AppointmentsWidgets(
+                                        date: state
+                                            .appointmnets[index].scheduleDate
+                                            .toString()),
+                                  );
                                 },
-                                separatorBuilder: (context, index) => const Divider(),
+                                separatorBuilder: (context, index) =>
+                                    const Divider(),
                                 itemCount: state.appointmnets.length,
                               );
                             }
-                            return const  CireProgressIndecatorWidget();
+                            return const CireProgressIndecatorWidget();
                           },
                         );
                       }, listener: (context, state) {

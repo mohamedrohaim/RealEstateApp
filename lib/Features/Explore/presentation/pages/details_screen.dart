@@ -7,6 +7,8 @@ import 'package:realestate/Features/Explore/presentation/cubit/get_unit_cubit.da
 import 'package:realestate/Features/Explore/presentation/widgets/house_details_card.dart';
 import 'package:realestate/Features/Explore/presentation/widgets/stacke_image_slider.dart';
 import 'package:realestate/core/network/cach_helper.dart';
+import 'package:realestate/core/utils/spacing.dart';
+import 'package:realestate/core/widgets/circle_progress_widget.dart';
 import 'package:realestate/injection_container.dart' as di;
 
 class DetialsScreen extends StatefulWidget {
@@ -75,10 +77,11 @@ class _DetialsScreenState extends State<DetialsScreen> {
             ),
           );
         }
-        return const Scaffold(
+        return  Scaffold(
             body: Column(
           children: [
-            Center(child: CircularProgressIndicator())
+            verticalSpace(400),
+            Center(child: CireProgressIndecatorWidget())
             //HouseDetails(),
           ],
         ));

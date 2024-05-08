@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:realestate/Features/Explore/data/models/unit_by_id_model.dart';
 import 'package:realestate/Features/Explore/data/models/unit_model.dart';
@@ -14,6 +15,8 @@ abstract class RemoteDataSource {
   Future<String> addTofavoirt(int id, String userID);
   Future<String> addAppointment(String scheduleDate, int unitId, String userId,
       String whatsappnumber, String email, bool isApproved);
+  Future<List<UnitMdel>?> searchFilter(
+      String? title, String? governate, int? priceFrom, int? priceTo);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -63,5 +66,75 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       "isApproved": true
     });
     return response.data;
+  }
+
+  @override
+  Future<List<UnitMdel>?> searchFilter(
+      String? title, String? governate, int? priceFrom, int? priceTo) async {
+    List<UnitMdel> outputunits = [];
+    //defualt search with title only
+    if (governate!.isEmpty && priceFrom == null && priceTo == null) {
+      log('defualt search');
+      final response = await APIHelper.filterSearch(
+          url: APIConstant.filterUnit,
+          data: {
+            "title": title,
+            "governate": '',
+            "priceFrom": null,
+            "priceTo": null
+          });
+      List<UnitMdel> units =
+          (response).map((item) => UnitMdel.fromJson(item)).toList();
+      outputunits = units;
+      return units;
+      //search with title and governate
+    } else if (title!.isNotEmpty && governate.isNotEmpty&& priceFrom == null && priceTo == null) {
+      log('search with title and governate');
+      final response = await APIHelper.filterSearch(
+          url: APIConstant.filterUnit,
+          data: {
+            "title": title,
+            "governate": governate,
+            "priceFrom": null,
+            "priceTo": null
+          });
+      List<UnitMdel> units =
+          (response).map((item) => UnitMdel.fromJson(item)).toList();
+      outputunits = units;
+      return outputunits;
+      //searhc with title and price and location
+    } else if (title.isNotEmpty &&
+        governate.isNotEmpty &&
+        priceFrom != null &&
+        priceTo != null) {
+      log('price and Location search');
+      final response =
+          await APIHelper.filterSearch(url: APIConstant.filterUnit, data: {
+        "title": title,
+        "governate": governate,
+        "priceFrom": priceFrom,
+        "priceTo": priceTo
+      });
+      List<UnitMdel> units =
+          (response).map((item) => UnitMdel.fromJson(item)).toList();
+      outputunits = units;
+      return units;
+      //searhc with title and price
+    } else if (governate.isEmpty && priceFrom != null && priceTo != null) {
+      log('price search');
+      final response = await APIHelper.filterSearch(
+          url: APIConstant.filterUnit,
+          data: {
+            "title": title,
+            "governate": "",
+            "priceFrom": priceFrom,
+            "priceTo": priceTo
+          });
+      List<UnitMdel> units =
+          (response).map((item) => UnitMdel.fromJson(item)).toList();
+      outputunits = units;
+      log(unit.toString());
+      return units;
+    }
   }
 }

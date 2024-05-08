@@ -12,6 +12,7 @@ import 'package:realestate/Features/Explore/domain/entities/unit_by_id.dart';
 import 'package:realestate/Features/Explore/domain/entities/unit_entity.dart';
 import 'package:realestate/Features/Explore/domain/use_cases/add_appointment_usecase.dart';
 import 'package:realestate/Features/Explore/domain/use_cases/add_to_favoirt_usecase.dart';
+import 'package:realestate/Features/Explore/domain/use_cases/filter_search_usecase.dart';
 import 'package:realestate/Features/Explore/domain/use_cases/get_unit_by_id_usecase.dart';
 import 'package:realestate/Features/Explore/domain/use_cases/get_unit_usecase.dart';
 import 'package:realestate/core/error/failure.dart';
@@ -26,11 +27,12 @@ class GetUnitCubit extends Cubit<GetUnitState> {
   final GetUnitByIdUseCase getUnitByIdUseCase;
   final AddToFavoritUsecase addToFavoritUsecase;
   final AddAppointmentUseCase addAppointmentUseCase;
+  final FilterSearchUsCase filterSearchUsCase;
   GetUnitCubit(
       {required this.getUnitUseCase,
       required this.getUnitByIdUseCase,
       required this.addToFavoritUsecase,
-      required this.addAppointmentUseCase})
+      required this.addAppointmentUseCase,required this.filterSearchUsCase})
       : super(GetUnitInitial());
   List<UnitEntity> units = [];
   Future<void> getUnit() async {
@@ -152,7 +154,22 @@ class GetUnitCubit extends Cubit<GetUnitState> {
       throw error;
     }
   }
-
+ Future<void> searchFiter(
+      String? title, String? governate, int? priceFrom, int? priceTo) async {
+    emit(FiterSearchIsLoadingState());
+    try {
+      Either<Failure, List<UnitEntity>?> response =
+          await filterSearchUsCase.call(title, governate, priceFrom, priceTo);
+      emit(response.fold(
+          (l) => FiterSearchIsErrorState(error: _mapFailureToMsg(l)),
+          (r) => FiterSearchIsSuccessState(units: r!)));   
+    } catch (error) {
+      if (error is DioException) {
+        emit(FiterSearchIsErrorState(error: error.toString()));
+      }
+      throw error;  
+    }
+  }
   void showCustomDialog(
       BuildContext context, String state, VoidCallback onpresed) {
     //  emit(ShowCustomDialogState());

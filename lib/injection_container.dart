@@ -5,6 +5,7 @@ import 'package:realestate/Features/Explore/data/repositories_impl/get_unit_repo
 import 'package:realestate/Features/Explore/domain/repositories/get_unit_repo.dart';
 import 'package:realestate/Features/Explore/domain/use_cases/add_appointment_usecase.dart';
 import 'package:realestate/Features/Explore/domain/use_cases/add_to_favoirt_usecase.dart';
+import 'package:realestate/Features/Explore/domain/use_cases/filter_search_usecase.dart';
 import 'package:realestate/Features/Explore/domain/use_cases/get_unit_by_id_usecase.dart';
 import 'package:realestate/Features/Explore/domain/use_cases/get_unit_usecase.dart';
 import 'package:realestate/Features/Explore/presentation/cubit/get_unit_cubit.dart';
@@ -29,6 +30,7 @@ Future<void> init() async {
   //!Explore
   //cubit
   sl.registerFactory<GetUnitCubit>(() => GetUnitCubit(
+    filterSearchUsCase: sl(),
       getUnitUseCase: sl(),
       getUnitByIdUseCase: sl(),
       addToFavoritUsecase: sl(),
@@ -40,6 +42,7 @@ Future<void> init() async {
       () => GetUnitByIdUseCase(getUnitRepo: sl()));
   sl.registerLazySingleton(() => AddToFavoritUsecase(getUnitRepo: sl()));
   sl.registerLazySingleton(() => AddAppointmentUseCase(repo: sl()));
+    sl.registerLazySingleton(() => FilterSearchUsCase(getUnitRepo: sl()));
   //repository
   sl.registerLazySingleton<GetUnitRepo>(
       () => GetUnitRepoImpl(remoteDataSource: sl()));

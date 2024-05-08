@@ -58,4 +58,14 @@ class GetUnitRepoImpl implements GetUnitRepo {
       return Left(error.toString());
     }
   }
+    @override
+  Future<Either<Failure, List<UnitEntity>?>> searchFilter(String? title,String? governate, int? priceFrom, int? priceTo) async{
+    try {
+      final response = await remoteDataSource.searchFilter(title, governate, priceFrom, priceTo);
+      log("repo impl" + response.toString());
+      return Right(response);
+    } catch (error) {
+      return Left(ServerFailure());
+    }
+  }
 }
