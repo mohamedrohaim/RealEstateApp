@@ -1,6 +1,6 @@
 class APIConstant {
   static const String baseUrl =
-      "https://realestate20240404164946.azurewebsites.net";
+      "http://realestateegv1.runasp.net";
   static const String loginUrl = "/api/Account/login";
   static const String registerUrl = "/api/Account/register";
   static const String confrimEmailOTP = "/api/Account/confirmEmail";

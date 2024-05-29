@@ -38,7 +38,7 @@ class _RecentViewState extends State<RecentView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TitlesTextWidget(label: widget.recentEntity.tite.toString().split(' ').take(5).join(' '),fontSize: 12,),
+                TitlesTextWidget(label: widget.recentEntity.tite.toString().split(' ').take(4).join(' '),fontSize: 12,),
                   TitlesTextWidget(label: widget.recentEntity.price.toString(),fontSize:13),
               ],
             ),

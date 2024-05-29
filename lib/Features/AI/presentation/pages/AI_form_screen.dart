@@ -9,6 +9,7 @@ import 'package:realestate/Features/AI/presentation/cubit/predict_price_cubit.da
 import 'package:realestate/Features/Auth/presentation/widgets/custom_button.dart';
 import 'package:realestate/core/utils/app_constant.dart';
 import 'package:realestate/core/utils/spacing.dart';
+import 'package:realestate/core/widgets/circle_progress_widget.dart';
 import 'package:realestate/core/widgets/normal_textfomfield.dart';
 
 class AIFormScreem extends StatefulWidget {
@@ -234,7 +235,7 @@ class _AIFormScreemState extends State<AIFormScreem> {
                       ],
                     ),
                     verticalSpace(10),
-                    CustomButton(
+              state is PredictedIsLoading? const CireProgressIndecatorWidget():      CustomButton(
                         onPressed: () {
                           log(selectedType.toString());
                           log(_selectedFurnished.toString());

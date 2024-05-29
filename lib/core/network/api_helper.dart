@@ -70,7 +70,7 @@ class APIHelper {
   static Future<Response> fetchData(int id, String userId) async {
     try {
       final response = await _dio.request(
-          'https://realestate20240404164946.azurewebsites.net/api/Unit/$id?userId=$userId',
+          'http://realestateegv1.runasp.net/api/Unit/$id?userId=$userId',
           options: Options(method: "GET"));
       return response;
     } catch (e) {
@@ -81,7 +81,7 @@ class APIHelper {
   static Future<List<dynamic>> getScheduleAppointment( String userId) async {
     try {
       final response = await _dio.request(
-          'https://realestate20240404164946.azurewebsites.net/api/ScheduleAppointment/user/$userId',
+          'http://realestateegv1.runasp.net/api/ScheduleAppointment/user/$userId',
           options: Options(method: "GET"));
             pritnt(response.data.toString());
       return response.data;

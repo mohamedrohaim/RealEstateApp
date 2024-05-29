@@ -9,7 +9,7 @@ class MyApiClient {
   static Future<Response> fetchData(int id, int userId) async {
     try {
       final response = await _dio.request(
-        'https://realestate20240404164946.azurewebsites.net/api/Unit/$id?userId=$userId',
+        'http://realestateegv1.runasp.net/api/Unit/$id?userId=$userId',
         options: Options(
           method: 'GET',
           headers: headers,
@@ -24,7 +24,7 @@ class MyApiClient {
     static Future<Response> getFavoirt( int userId) async {
     try {
       final response = await _dio.request(
-        'https://realestate20240404164946.azurewebsites.net/api/Unit/favorite-list?userId=$userId',
+        'http://realestateegv1.runasp.net/api/Unit/favorite-list?userId=$userId',
         options: Options(
           method: 'GET',
           headers: headers,

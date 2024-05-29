@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:realestate/Features/Explore/presentation/cubit/get_unit_cubit.dart';
 import 'package:realestate/Features/Explore/presentation/pages/details_screen.dart';
 import 'package:realestate/Features/Explore/presentation/widgets/card_widget.dart';
 import 'package:realestate/core/network/cach_helper.dart';
+import 'package:realestate/core/utils/app_color.dart';
 import 'package:realestate/core/widgets/circle_progress_widget.dart';
 import 'package:realestate/injection_container.dart'as di;
 
@@ -35,7 +37,10 @@ class HouseListView extends StatelessWidget {
               }
               if (state is GetUnitsByCategoryGrouped) {
                 if (state.unitCategory.isEmpty) {
-                  return CireProgressIndecatorWidget();
+                  return Center(
+                    child: Text("There is no House uploaded right now"      , style: TextStyle(
+                                color: AppColor.primaryColor, fontSize: 18.sp),),
+                  );
                 } else {
                   return GridView.count(
                       shrinkWrap: true,
